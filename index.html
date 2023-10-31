@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jordan Tuia">
+
+<title>Coding Sample, v1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="CodingSample_HTML_files/libs/clipboard/clipboard.min.js"></script>
+<script src="CodingSample_HTML_files/libs/quarto-html/quarto.js"></script>
+<script src="CodingSample_HTML_files/libs/quarto-html/popper.min.js"></script>
+<script src="CodingSample_HTML_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="CodingSample_HTML_files/libs/quarto-html/anchor.min.js"></script>
+<link href="CodingSample_HTML_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="CodingSample_HTML_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="CodingSample_HTML_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="CodingSample_HTML_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="CodingSample_HTML_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="CodingSample_HTML_files/libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="CodingSample_HTML_files/libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#configure-environment-load-packages" id="toc-configure-environment-load-packages" class="nav-link" data-scroll-target="#configure-environment-load-packages">Configure environment &amp; load packages</a></li>
+  <li><a href="#import-clean-data" id="toc-import-clean-data" class="nav-link" data-scroll-target="#import-clean-data">Import &amp; clean data</a></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a>
+  <ul class="collapse">
+  <li><a href="#function-for-figure-1" id="toc-function-for-figure-1" class="nav-link" data-scroll-target="#function-for-figure-1">Function for figure 1</a></li>
+  <li><a href="#function-for-summary-table" id="toc-function-for-summary-table" class="nav-link" data-scroll-target="#function-for-summary-table">Function for summary table</a></li>
+  <li><a href="#function-for-figure-2" id="toc-function-for-figure-2" class="nav-link" data-scroll-target="#function-for-figure-2">Function for Figure 2</a></li>
+  <li><a href="#function-for-model-1" id="toc-function-for-model-1" class="nav-link" data-scroll-target="#function-for-model-1">Function for Model 1</a></li>
+  <li><a href="#function-for-model-2" id="toc-function-for-model-2" class="nav-link" data-scroll-target="#function-for-model-2">Function for Model 2</a></li>
+  <li><a href="#function-for-model-3" id="toc-function-for-model-3" class="nav-link" data-scroll-target="#function-for-model-3">Function for Model 3</a></li>
+  </ul></li>
+  <li><a href="#outputs-by-outcome-variables" id="toc-outputs-by-outcome-variables" class="nav-link" data-scroll-target="#outputs-by-outcome-variables">Outputs by outcome variables</a>
+  <ul class="collapse">
+  <li><a href="#outcome-a-os-in-intervention" id="toc-outcome-a-os-in-intervention" class="nav-link" data-scroll-target="#outcome-a-os-in-intervention">Outcome A: OS in intervention</a></li>
+  <li><a href="#outcome-b-difference-in-os" id="toc-outcome-b-difference-in-os" class="nav-link" data-scroll-target="#outcome-b-difference-in-os">Outcome B: Difference in OS</a></li>
+  <li><a href="#outcome-c-pfs-in-intervention" id="toc-outcome-c-pfs-in-intervention" class="nav-link" data-scroll-target="#outcome-c-pfs-in-intervention">Outcome C: PFS in intervention</a></li>
+  <li><a href="#outcome-d-difference-in-pfs" id="toc-outcome-d-difference-in-pfs" class="nav-link" data-scroll-target="#outcome-d-difference-in-pfs">Outcome D: Difference in PFS</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Coding Sample, v1</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jordan Tuia </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p><strong>Aim</strong>: to produce a report in Word analyzing a dataset, in which there is 1 independent variable of interest but several outcome variables of interest. Outcome variables of interest include:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Outcome Variable</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><code>os_intervention_months</code></td>
+<td style="text-align: left;">median OS in intervention arm only</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>os_diff</code></td>
+<td style="text-align: left;">difference in OS between intervention and control arm</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>pfs_intervention</code></td>
+<td style="text-align: left;">median PFS in intervention arm only</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>pfs_diff</code></td>
+<td style="text-align: left;">difference in PFS between intervention and control arm</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="configure-environment-load-packages" class="level1">
+<h1>Configure environment &amp; load packages</h1>
+<p>Current R version:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "R version 4.2.2 (2022-10-31 ucrt)"</code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(xlsx)</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">library</span>(ggtext)</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="fu">library</span>(flextable)</span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">library</span>(broom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Package versions in use:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>     Package Version
+1      broom   1.0.5
+2  flextable   0.9.3
+3    janitor   2.2.0
+4     ggpubr   0.6.0
+5     ggtext   0.1.2
+6       xlsx   0.6.5
+7  lubridate   1.9.2
+8    forcats   1.0.0
+9    stringr   1.5.0
+10     dplyr   1.1.3
+11     purrr   1.0.2
+12     readr   2.1.4
+13     tidyr   1.3.0
+14    tibble   3.2.1
+15   ggplot2   3.4.3
+16 tidyverse   2.0.0</code></pre>
+</div>
+</div>
+</section>
+<section id="import-clean-data" class="level1">
+<h1>Import &amp; clean data</h1>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#reads data from excel sheet</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>data <span class="ot">&lt;-</span> <span class="fu">read.xlsx2</span>(<span class="st">"data_og.xlsx"</span>, <span class="at">sheetName =</span> <span class="st">"og"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="co">#makes the variable names more compatible for manipulation</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() </span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a>dat1 <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
+<span id="cb4-8"><a href="#cb4-8"></a>  <span class="co">#removes variables not in use</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>  <span class="fu">select</span>(rr_intervention, os_intervention_months, pfs_intervention, os_control_months, pfs_contnrol, type) <span class="sc">|&gt;</span> </span>
+<span id="cb4-10"><a href="#cb4-10"></a>  <span class="co">#transforms variables into numerical format</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(rr_intervention, os_intervention_months, pfs_intervention, os_control_months, pfs_contnrol), as.numeric)) <span class="sc">|&gt;</span> </span>
+<span id="cb4-12"><a href="#cb4-12"></a>  <span class="co">#categorizes independent variable</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a>  <span class="fu">mutate</span>(<span class="at">rr_cat =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-14"><a href="#cb4-14"></a>           rr_intervention <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">"&lt;10"</span>, </span>
+<span id="cb4-15"><a href="#cb4-15"></a>           rr_intervention <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">&amp;</span> rr_intervention <span class="sc">&lt;</span> <span class="dv">20</span> <span class="sc">~</span> <span class="st">"10-20"</span>, </span>
+<span id="cb4-16"><a href="#cb4-16"></a>           rr_intervention <span class="sc">&gt;=</span> <span class="dv">20</span> <span class="sc">&amp;</span> rr_intervention <span class="sc">&lt;</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">"20-30"</span>, </span>
+<span id="cb4-17"><a href="#cb4-17"></a>           rr_intervention <span class="sc">&gt;=</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">"30+"</span>, </span>
+<span id="cb4-18"><a href="#cb4-18"></a>           T <span class="sc">~</span> <span class="st">"other"</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a>         ))  <span class="sc">|&gt;</span> </span>
+<span id="cb4-20"><a href="#cb4-20"></a>  <span class="co">#removes rows with NA/missing for the main independent variable</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a>   <span class="fu">filter</span>(rr_cat <span class="sc">!=</span> <span class="st">"other"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-22"><a href="#cb4-22"></a>  <span class="co">#factorizes categorized variables</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a>  <span class="fu">mutate</span>(<span class="at">rr_cat =</span> <span class="fu">factor</span>(rr_cat, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"&lt;10"</span>, <span class="st">"10-20"</span>, <span class="st">"20-30"</span>, <span class="st">"30+"</span>)), </span>
+<span id="cb4-24"><a href="#cb4-24"></a>         <span class="co">#calculates new variables</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a>         <span class="at">os_diff =</span> os_intervention_months <span class="sc">-</span> os_control_months, </span>
+<span id="cb4-26"><a href="#cb4-26"></a>         <span class="at">pfs_diff =</span> pfs_intervention <span class="sc">-</span> pfs_contnrol) </span>
+<span id="cb4-27"><a href="#cb4-27"></a></span>
+<span id="cb4-28"><a href="#cb4-28"></a></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="co"># creates dictionary for color use in later code</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a>col_labs <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb4-31"><a href="#cb4-31"></a>  <span class="st">"Overall"</span><span class="ot">=</span><span class="st">"#17162F"</span>, </span>
+<span id="cb4-32"><a href="#cb4-32"></a>  <span class="st">"Single"</span> <span class="ot">=</span> <span class="st">"#FFB248"</span>, </span>
+<span id="cb4-33"><a href="#cb4-33"></a>  <span class="st">"Combination"</span> <span class="ot">=</span> <span class="st">"#C76058"</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a>)</span>
+<span id="cb4-35"><a href="#cb4-35"></a></span>
+<span id="cb4-36"><a href="#cb4-36"></a><span class="co"># creates another dictionary for color use in later code</span></span>
+<span id="cb4-37"><a href="#cb4-37"></a>col2 <span class="ot">&lt;-</span> <span class="fu">rev</span>(<span class="fu">c</span>(</span>
+<span id="cb4-38"><a href="#cb4-38"></a>  <span class="st">"#BF4904"</span>, </span>
+<span id="cb4-39"><a href="#cb4-39"></a>  <span class="st">"#D97925"</span>, </span>
+<span id="cb4-40"><a href="#cb4-40"></a>  <span class="st">"#F28705"</span>, </span>
+<span id="cb4-41"><a href="#cb4-41"></a>  <span class="st">"#F29F05"</span></span>
+<span id="cb4-42"><a href="#cb4-42"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="functions" class="level1">
+<h1>Functions</h1>
+<section id="function-for-figure-1" class="level2">
+<h2 class="anchored" data-anchor-id="function-for-figure-1">Function for figure 1</h2>
+<p><strong>Objective</strong>: show the distribution of each outcome variable, stratified by category. This function will return a figure for each outcome variable of interest.</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>get_figure1 <span class="ot">&lt;-</span> <span class="cf">function</span>(outcome_var) {</span>
+<span id="cb5-2"><a href="#cb5-2"></a>   </span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="co"># Calculates stats test for variable</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>  stat_test <span class="ot">&lt;-</span> <span class="fu">kruskal.test</span>(<span class="fu">get</span>(outcome_var) <span class="sc">~</span> rr_cat, <span class="at">data =</span> dat1)</span>
+<span id="cb5-5"><a href="#cb5-5"></a>  </span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="co"># Calculates labels for plot</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  med_lab <span class="ot">&lt;-</span> dat1 <span class="sc">|&gt;</span> </span>
+<span id="cb5-8"><a href="#cb5-8"></a>    <span class="fu">summarize</span>(<span class="at">median =</span> <span class="fu">round</span>(<span class="fu">median</span>(<span class="fu">get</span>(outcome_var), <span class="at">na.rm =</span> T), <span class="dv">1</span>),</span>
+<span id="cb5-9"><a href="#cb5-9"></a>              <span class="at">maxz =</span> <span class="fu">max</span>(<span class="fu">get</span>(outcome_var)), </span>
+<span id="cb5-10"><a href="#cb5-10"></a>              <span class="at">.by =</span> rr_cat)</span>
+<span id="cb5-11"><a href="#cb5-11"></a>  </span>
+<span id="cb5-12"><a href="#cb5-12"></a>  </span>
+<span id="cb5-13"><a href="#cb5-13"></a>  </span>
+<span id="cb5-14"><a href="#cb5-14"></a>  plot <span class="ot">&lt;-</span> dat1 <span class="sc">|&gt;</span> </span>
+<span id="cb5-15"><a href="#cb5-15"></a>    <span class="co">#maps variables to figure</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rr_cat, <span class="at">y =</span> <span class="fu">get</span>(outcome_var), <span class="at">color =</span> rr_cat)) <span class="sc">+</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a>    <span class="co">#adds and formats dots</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a>    <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">width =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a>    <span class="co">#add &amp; formats boxplots</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a>    <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>, <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a>    <span class="co">#adds &amp; formats in blue line for overall median </span></span>
+<span id="cb5-22"><a href="#cb5-22"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">median</span>(dat1[[outcome_var]], <span class="at">na.rm =</span> T), </span>
+<span id="cb5-23"><a href="#cb5-23"></a>               <span class="at">color =</span> <span class="st">"#1261A6"</span>, </span>
+<span id="cb5-24"><a href="#cb5-24"></a>               <span class="at">linetype =</span> <span class="dv">2</span>, </span>
+<span id="cb5-25"><a href="#cb5-25"></a>               <span class="at">size =</span> <span class="fl">0.6</span>, </span>
+<span id="cb5-26"><a href="#cb5-26"></a>               <span class="at">alpha =</span> <span class="fl">0.55</span>) <span class="sc">+</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a>    <span class="co">#adds in label for each group</span></span>
+<span id="cb5-28"><a href="#cb5-28"></a>    <span class="fu">geom_label</span>(<span class="at">data =</span> med_lab, <span class="fu">aes</span>(<span class="at">x =</span> rr_cat, <span class="at">y =</span> median, <span class="at">color =</span> rr_cat, <span class="at">label =</span> median), </span>
+<span id="cb5-29"><a href="#cb5-29"></a>               <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> <span class="sc">-</span><span class="fl">0.4</span>)) <span class="sc">+</span></span>
+<span id="cb5-30"><a href="#cb5-30"></a>    <span class="co">#formats the x-axis</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a>    <span class="fu">scale_x_discrete</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">add =</span> <span class="fu">c</span>(<span class="fl">0.75</span>, <span class="dv">0</span>))) <span class="sc">+</span></span>
+<span id="cb5-32"><a href="#cb5-32"></a>    <span class="co">#maps the correct colors to categories</span></span>
+<span id="cb5-33"><a href="#cb5-33"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> col2, </span>
+<span id="cb5-34"><a href="#cb5-34"></a>                        <span class="at">aesthetics =</span> <span class="st">"color"</span>) <span class="sc">+</span></span>
+<span id="cb5-35"><a href="#cb5-35"></a>    <span class="co">#adds in the p-value from the stats test</span></span>
+<span id="cb5-36"><a href="#cb5-36"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Overall response rate (%)"</span>,</span>
+<span id="cb5-37"><a href="#cb5-37"></a>         <span class="at">caption =</span> <span class="fu">paste0</span>(<span class="st">"*p-value = "</span>, <span class="fu">round</span>(stat_test<span class="sc">$</span>p.value, <span class="dv">2</span>))) <span class="sc">+</span></span>
+<span id="cb5-38"><a href="#cb5-38"></a>    <span class="co">#applies the theme</span></span>
+<span id="cb5-39"><a href="#cb5-39"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb5-40"><a href="#cb5-40"></a>    <span class="co">#cleans up theme formatting</span></span>
+<span id="cb5-41"><a href="#cb5-41"></a>    <span class="fu">theme</span>(<span class="at">plot.subtitle =</span> <span class="fu">element_markdown</span>(), </span>
+<span id="cb5-42"><a href="#cb5-42"></a>          <span class="at">legend.position =</span> <span class="st">"none"</span>, </span>
+<span id="cb5-43"><a href="#cb5-43"></a>          <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb5-44"><a href="#cb5-44"></a>          <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">linewidth =</span> <span class="fl">0.5</span>),</span>
+<span id="cb5-45"><a href="#cb5-45"></a>          <span class="at">panel.grid.minor.y =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb5-46"><a href="#cb5-46"></a>  </span>
+<span id="cb5-47"><a href="#cb5-47"></a>  </span>
+<span id="cb5-48"><a href="#cb5-48"></a>  <span class="fu">return</span>(plot)</span>
+<span id="cb5-49"><a href="#cb5-49"></a></span>
+<span id="cb5-50"><a href="#cb5-50"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="function-for-summary-table" class="level2">
+<h2 class="anchored" data-anchor-id="function-for-summary-table">Function for summary table</h2>
+<p><strong>Objective</strong>: show summary statistics for each outcome variable, stratified by category. This function will return a table for each outcome variable of interest.</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>get_sum_table <span class="ot">&lt;-</span> <span class="cf">function</span>(outcome_var) {</span>
+<span id="cb6-2"><a href="#cb6-2"></a>  dat1 <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a href="#cb6-3"></a>    <span class="co">#orders table by previously set factor</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="fu">arrange</span>(rr_cat) <span class="sc">|&gt;</span> </span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="co">#renames the variable for easier manipulation</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>    <span class="fu">mutate</span>(<span class="at">val =</span> <span class="fu">get</span>(outcome_var)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-7"><a href="#cb6-7"></a>    <span class="co">#gets summary statistics</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>    <span class="fu">summarize</span>(<span class="at">median =</span> <span class="fu">median</span>(val, <span class="at">na.rm =</span> T),</span>
+<span id="cb6-9"><a href="#cb6-9"></a>              <span class="at">percentile.25 =</span> <span class="fu">quantile</span>(val, <span class="fl">0.25</span>, <span class="at">na.rm =</span> T),</span>
+<span id="cb6-10"><a href="#cb6-10"></a>              <span class="at">percentile.75 =</span> <span class="fu">quantile</span>(val, <span class="fl">0.75</span>, <span class="at">na.rm =</span> T),</span>
+<span id="cb6-11"><a href="#cb6-11"></a>              <span class="at">min =</span> <span class="fu">min</span>(val, <span class="at">na.rm=</span> T),</span>
+<span id="cb6-12"><a href="#cb6-12"></a>              <span class="at">max =</span> <span class="fu">max</span>(val, <span class="at">na.rm =</span> T), </span>
+<span id="cb6-13"><a href="#cb6-13"></a>              <span class="at">.by =</span> rr_cat) <span class="sc">|&gt;</span> </span>
+<span id="cb6-14"><a href="#cb6-14"></a>    <span class="co">#turns into a MS word table</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a>    flextable<span class="sc">::</span><span class="fu">as_flextable</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb6-16"><a href="#cb6-16"></a>    <span class="co">#deletes footer</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a>    flextable<span class="sc">::</span><span class="fu">delete_part</span>(<span class="at">part =</span> <span class="st">"footer"</span>) </span>
+<span id="cb6-18"><a href="#cb6-18"></a>  </span>
+<span id="cb6-19"><a href="#cb6-19"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="function-for-figure-2" class="level2">
+<h2 class="anchored" data-anchor-id="function-for-figure-2">Function for Figure 2</h2>
+<p><strong>Objective</strong>: show the relationship between the continuous independent variable and the outcome variable of interest, stratified by the variable <code>type</code>.</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>get_figure2 <span class="ot">&lt;-</span> <span class="cf">function</span>(outcome_var) {</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  dat1 <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="co">#maps variables to figure</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">get</span>(outcome_var), <span class="at">x =</span> rr_intervention, <span class="at">color =</span> type)) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>    <span class="co">#adds in dots</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>    <span class="co">#adds in linear regression, stratified by the type variable</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>    <span class="co">#maps colors from dictionary</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> col_labs, </span>
+<span id="cb7-11"><a href="#cb7-11"></a>                       <span class="at">aesthetics =</span> <span class="st">"color"</span>) <span class="sc">+</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>    <span class="co">#adds x-axis title </span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Overall response rate (%)"</span>, </span>
+<span id="cb7-14"><a href="#cb7-14"></a>         <span class="co">#adds in header displaying the corresponding colors</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a>         <span class="at">title =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"&lt;span style = 'color:{col_labs[2]};'&gt;Single agent&lt;/span&gt; and &lt;span style = 'color:{col_labs[3]};'&gt;Combined&lt;/span&gt; drugs"</span>)) <span class="sc">+</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a>    <span class="co">#adds in equation labels</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a>    <span class="fu">stat_regline_equation</span>( <span class="fu">aes</span>(<span class="at">label =</span> ..eq.label..)) <span class="sc">+</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a>    <span class="co">#applies theme</span></span>
+<span id="cb7-19"><a href="#cb7-19"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb7-20"><a href="#cb7-20"></a>    <span class="co">#cleans up theme</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_markdown</span>(), </span>
+<span id="cb7-22"><a href="#cb7-22"></a>          <span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb7-23"><a href="#cb7-23"></a>  </span>
+<span id="cb7-24"><a href="#cb7-24"></a>  </span>
+<span id="cb7-25"><a href="#cb7-25"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="function-for-model-1" class="level2">
+<h2 class="anchored" data-anchor-id="function-for-model-1">Function for Model 1</h2>
+<p><strong>Objective</strong>: Provide linear regression details from the model shown in Figure 2</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>get_model1 <span class="ot">&lt;-</span> <span class="cf">function</span>(outcome_var) {</span>
+<span id="cb8-2"><a href="#cb8-2"></a>  model_plot <span class="ot">&lt;-</span> dat1 <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="co">#groups data by stratifying variable, 'type'</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>    <span class="fu">group_by</span>(type) <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>    <span class="co">#Runs linear regression for each stratified group for outcome variable</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>    <span class="fu">do</span>(<span class="at">mod =</span> <span class="fu">lm</span>(<span class="fu">get</span>(outcome_var) <span class="sc">~</span> rr_intervention, <span class="at">data =</span> .)) <span class="sc">|&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>    <span class="co">#Extracts the models as a list, with the stratifying variable (type) as the name</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>    <span class="fu">pull</span>(mod, type) <span class="sc">|&gt;</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>    <span class="co">#applies the 'summary' function for each model</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>    <span class="fu">lapply</span>(summary)  </span>
+<span id="cb8-11"><a href="#cb8-11"></a>  </span>
+<span id="cb8-12"><a href="#cb8-12"></a>  <span class="fu">return</span>(model_plot)</span>
+<span id="cb8-13"><a href="#cb8-13"></a></span>
+<span id="cb8-14"><a href="#cb8-14"></a>  </span>
+<span id="cb8-15"><a href="#cb8-15"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="function-for-model-2" class="level2">
+<h2 class="anchored" data-anchor-id="function-for-model-2">Function for Model 2</h2>
+<p><strong>Objective</strong>: Output of the linear regression as an interaction between the 2 non-outcome variables (rr_intervention &amp; type)</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>get_model2 <span class="ot">&lt;-</span> <span class="cf">function</span>(outcome_var) {</span>
+<span id="cb9-2"><a href="#cb9-2"></a>  model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">get</span>(outcome_var) <span class="sc">~</span>  rr_intervention <span class="sc">*</span> type, <span class="at">data =</span> dat1)</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">return</span>(<span class="fu">summary</span>(model2))</span>
+<span id="cb9-4"><a href="#cb9-4"></a></span>
+<span id="cb9-5"><a href="#cb9-5"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="function-for-model-3" class="level2">
+<h2 class="anchored" data-anchor-id="function-for-model-3">Function for Model 3</h2>
+<p><strong>Objective</strong>: Output of the linear regression with the 2 non-outcome variables (rr_intervention &amp; type)</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>get_model3 <span class="ot">&lt;-</span> <span class="cf">function</span>(outcome_var) {</span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">get</span>(outcome_var) <span class="sc">~</span>  rr_intervention <span class="sc">+</span> type, <span class="at">data =</span> dat1)</span>
+<span id="cb10-4"><a href="#cb10-4"></a></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="fu">return</span>(model3)</span>
+<span id="cb10-6"><a href="#cb10-6"></a></span>
+<span id="cb10-7"><a href="#cb10-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="outputs-by-outcome-variables" class="level1">
+<h1>Outputs by outcome variables</h1>
+<section id="outcome-a-os-in-intervention" class="level2">
+<h2 class="anchored" data-anchor-id="outcome-a-os-in-intervention">Outcome A: OS in intervention</h2>
+<section id="figure-1a" class="level3">
+<h3 class="anchored" data-anchor-id="figure-1a">Figure 1A</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">get_figure1</span>(<span class="st">"os_intervention_months"</span>) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">ylab</span>(<span class="st">"OS in intervention (months)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="CodingSample_HTML_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="table-1a" class="level3">
+<h3 class="anchored" data-anchor-id="table-1a">Table 1A</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">get_sum_table</span>(<span class="st">"os_intervention_months"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-45b741b2{}.cl-45ad7088{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-45ad70ba{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(153, 153, 153, 1.00);background-color:transparent;}.cl-45b16a30{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-45b16a3a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-45b17fa2{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-45b17fac{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-45b17fad{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-45b17fb6{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-45b17fb7{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-45b17fb8{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-45b17fb9{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-45b17fc0{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-45b17fc1{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-45b17fca{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-45b17fcb{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-45b17fcc{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-45b741b2"><thead><tr style="overflow-wrap:break-word;"><th class="cl-45b17fa2"><p class="cl-45b16a30"><span class="cl-45ad7088">rr_cat</span></p></th><th class="cl-45b17fac"><p class="cl-45b16a3a"><span class="cl-45ad7088">median</span></p></th><th class="cl-45b17fad"><p class="cl-45b16a3a"><span class="cl-45ad7088">percentile.25</span></p></th><th class="cl-45b17fad"><p class="cl-45b16a3a"><span class="cl-45ad7088">percentile.75</span></p></th><th class="cl-45b17fac"><p class="cl-45b16a3a"><span class="cl-45ad7088">min</span></p></th><th class="cl-45b17fac"><p class="cl-45b16a3a"><span class="cl-45ad7088">max</span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-45b17fb6"><p class="cl-45b16a30"><span class="cl-45ad70ba">factor</span></p></th><th class="cl-45b17fb7"><p class="cl-45b16a3a"><span class="cl-45ad70ba">numeric</span></p></th><th class="cl-45b17fb8"><p class="cl-45b16a3a"><span class="cl-45ad70ba">numeric</span></p></th><th class="cl-45b17fb8"><p class="cl-45b16a3a"><span class="cl-45ad70ba">numeric</span></p></th><th class="cl-45b17fb7"><p class="cl-45b16a3a"><span class="cl-45ad70ba">numeric</span></p></th><th class="cl-45b17fb7"><p class="cl-45b16a3a"><span class="cl-45ad70ba">numeric</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-45b17fb9"><p class="cl-45b16a30"><span class="cl-45ad7088">&lt;10</span></p></td><td class="cl-45b17fc0"><p class="cl-45b16a3a"><span class="cl-45ad7088">10.4</span></p></td><td class="cl-45b17fc1"><p class="cl-45b16a3a"><span class="cl-45ad7088">8.8</span></p></td><td class="cl-45b17fc1"><p class="cl-45b16a3a"><span class="cl-45ad7088">12.0</span></p></td><td class="cl-45b17fc0"><p class="cl-45b16a3a"><span class="cl-45ad7088">7.1</span></p></td><td class="cl-45b17fc0"><p class="cl-45b16a3a"><span class="cl-45ad7088">13.7</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-45b17fb9"><p class="cl-45b16a30"><span class="cl-45ad7088">10-20</span></p></td><td class="cl-45b17fc0"><p class="cl-45b16a3a"><span class="cl-45ad7088">17.7</span></p></td><td class="cl-45b17fc1"><p class="cl-45b16a3a"><span class="cl-45ad7088">14.4</span></p></td><td class="cl-45b17fc1"><p class="cl-45b16a3a"><span class="cl-45ad7088">26.2</span></p></td><td class="cl-45b17fc0"><p class="cl-45b16a3a"><span class="cl-45ad7088">8.3</span></p></td><td class="cl-45b17fc0"><p class="cl-45b16a3a"><span class="cl-45ad7088">48.0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-45b17fb9"><p class="cl-45b16a30"><span class="cl-45ad7088">20-30</span></p></td><td class="cl-45b17fc0"><p class="cl-45b16a3a"><span class="cl-45ad7088">13.9</span></p></td><td class="cl-45b17fc1"><p class="cl-45b16a3a"><span class="cl-45ad7088">11.3</span></p></td><td class="cl-45b17fc1"><p class="cl-45b16a3a"><span class="cl-45ad7088">17.7</span></p></td><td class="cl-45b17fc0"><p class="cl-45b16a3a"><span class="cl-45ad7088">8.6</span></p></td><td class="cl-45b17fc0"><p class="cl-45b16a3a"><span class="cl-45ad7088">24.0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-45b17fca"><p class="cl-45b16a30"><span class="cl-45ad7088">30+</span></p></td><td class="cl-45b17fcb"><p class="cl-45b16a3a"><span class="cl-45ad7088">21.7</span></p></td><td class="cl-45b17fcc"><p class="cl-45b16a3a"><span class="cl-45ad7088">16.5</span></p></td><td class="cl-45b17fcc"><p class="cl-45b16a3a"><span class="cl-45ad7088">34.1</span></p></td><td class="cl-45b17fcb"><p class="cl-45b16a3a"><span class="cl-45ad7088">8.7</span></p></td><td class="cl-45b17fcb"><p class="cl-45b16a3a"><span class="cl-45ad7088">59.2</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="figure-2a" class="level3">
+<h3 class="anchored" data-anchor-id="figure-2a">Figure 2A</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">get_figure2</span>(<span class="st">"os_intervention_months"</span>)<span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">ylab</span>(<span class="st">"OS in intervention (months)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="CodingSample_HTML_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="model-1a" class="level3">
+<h3 class="anchored" data-anchor-id="model-1a">Model 1A</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Monotherapy</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Combination</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">get_model1</span>(<span class="st">"os_intervention_months"</span>)<span class="sc">$</span>Single</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = get(outcome_var) ~ rr_intervention, data = .)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-18.286  -6.598  -1.609   3.649  36.093 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      7.23294    4.38502   1.649 0.107753    
+rr_intervention  0.35956    0.09156   3.927 0.000373 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 11.19 on 36 degrees of freedom
+  (18 observations deleted due to missingness)
+Multiple R-squared:  0.2999,    Adjusted R-squared:  0.2804 
+F-statistic: 15.42 on 1 and 36 DF,  p-value: 0.0003729</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">get_model1</span>(<span class="st">"os_intervention_months"</span>)<span class="sc">$</span>Combination</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = get(outcome_var) ~ rr_intervention, data = .)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-21.997  -6.312  -4.375   7.802  16.495 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)       5.1206    12.0306   0.426    0.683  
+rr_intervention   0.5215     0.2243   2.325    0.053 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 13.17 on 7 degrees of freedom
+  (3 observations deleted due to missingness)
+Multiple R-squared:  0.4358,    Adjusted R-squared:  0.3552 
+F-statistic: 5.408 on 1 and 7 DF,  p-value: 0.05297</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="model-2a" class="level3">
+<h3 class="anchored" data-anchor-id="model-2a">Model 2A</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">get_model2</span>(<span class="st">"os_intervention_months"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = get(outcome_var) ~ rr_intervention * type, data = dat1)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-21.997  -6.520  -1.683   4.817  36.093 
+
+Coefficients:
+                           Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)                  5.1206    10.5356   0.486   0.6294  
+rr_intervention              0.5215     0.1964   2.655   0.0111 *
+typeSingle                   2.1124    11.4645   0.184   0.8547  
+rr_intervention:typeSingle  -0.1619     0.2179  -0.743   0.4614  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 11.54 on 43 degrees of freedom
+  (21 observations deleted due to missingness)
+Multiple R-squared:  0.3703,    Adjusted R-squared:  0.3264 
+F-statistic:  8.43 on 3 and 43 DF,  p-value: 0.000161</code></pre>
+</div>
+</div>
+</section>
+<section id="model-3a" class="level3">
+<h3 class="anchored" data-anchor-id="model-3a">Model 3A</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">get_model3</span>(<span class="st">"os_intervention_months"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = get(outcome_var) ~ rr_intervention + type, data = dat1)
+
+Coefficients:
+    (Intercept)  rr_intervention       typeSingle  
+         11.691            0.390           -5.783  </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="outcome-b-difference-in-os" class="level2">
+<h2 class="anchored" data-anchor-id="outcome-b-difference-in-os">Outcome B: Difference in OS</h2>
+<section id="figure-1b" class="level3">
+<h3 class="anchored" data-anchor-id="figure-1b">Figure 1B</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">get_figure1</span>(<span class="st">"os_diff"</span>) <span class="sc">+</span> </span>
+<span id="cb22-2"><a href="#cb22-2"></a>   <span class="fu">ylab</span>( <span class="st">"Difference in OS (months)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="CodingSample_HTML_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="table-1b" class="level3">
+<h3 class="anchored" data-anchor-id="table-1b">Table 1B</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">get_sum_table</span>(<span class="st">"os_diff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-471be8a0{}.cl-4713af3c{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4713af50{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(153, 153, 153, 1.00);background-color:transparent;}.cl-4717086c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-47170876{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-47171a82{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47171a83{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47171a8c{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47171a8d{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47171a8e{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47171a96{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47171a97{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47171a98{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47171aa0{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47171aa1{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47171aa2{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47171aaa{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47171aab{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47171aac{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47171ab4{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-471be8a0"><thead><tr style="overflow-wrap:break-word;"><th class="cl-47171a82"><p class="cl-4717086c"><span class="cl-4713af3c">rr_cat</span></p></th><th class="cl-47171a83"><p class="cl-47170876"><span class="cl-4713af3c">median</span></p></th><th class="cl-47171a8c"><p class="cl-47170876"><span class="cl-4713af3c">percentile.25</span></p></th><th class="cl-47171a8c"><p class="cl-47170876"><span class="cl-4713af3c">percentile.75</span></p></th><th class="cl-47171a83"><p class="cl-47170876"><span class="cl-4713af3c">min</span></p></th><th class="cl-47171a83"><p class="cl-47170876"><span class="cl-4713af3c">max</span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-47171a8d"><p class="cl-4717086c"><span class="cl-4713af50">factor</span></p></th><th class="cl-47171a8e"><p class="cl-47170876"><span class="cl-4713af50">numeric</span></p></th><th class="cl-47171a96"><p class="cl-47170876"><span class="cl-4713af50">numeric</span></p></th><th class="cl-47171a96"><p class="cl-47170876"><span class="cl-4713af50">numeric</span></p></th><th class="cl-47171a8e"><p class="cl-47170876"><span class="cl-4713af50">numeric</span></p></th><th class="cl-47171a8e"><p class="cl-47170876"><span class="cl-4713af50">numeric</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-47171a97"><p class="cl-4717086c"><span class="cl-4713af3c">&lt;10</span></p></td><td class="cl-47171a98"><p class="cl-47170876"><span class="cl-4713af3c">1.2</span></p></td><td class="cl-47171aa0"><p class="cl-47170876"><span class="cl-4713af3c">0.9</span></p></td><td class="cl-47171aa0"><p class="cl-47170876"><span class="cl-4713af3c">1.5</span></p></td><td class="cl-47171a98"><p class="cl-47170876"><span class="cl-4713af3c">0.6</span></p></td><td class="cl-47171a98"><p class="cl-47170876"><span class="cl-4713af3c">1.8</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-47171aa1"><p class="cl-4717086c"><span class="cl-4713af3c">10-20</span></p></td><td class="cl-47171aa2"><p class="cl-47170876"><span class="cl-4713af3c">-2.8</span></p></td><td class="cl-47171aaa"><p class="cl-47170876"><span class="cl-4713af3c">-18.8</span></p></td><td class="cl-47171aaa"><p class="cl-47170876"><span class="cl-4713af3c">4.5</span></p></td><td class="cl-47171aa2"><p class="cl-47170876"><span class="cl-4713af3c">-34.7</span></p></td><td class="cl-47171aa2"><p class="cl-47170876"><span class="cl-4713af3c">11.7</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-47171aa1"><p class="cl-4717086c"><span class="cl-4713af3c">20-30</span></p></td><td class="cl-47171aa2"><p class="cl-47170876"><span class="cl-4713af3c">4.3</span></p></td><td class="cl-47171aaa"><p class="cl-47170876"><span class="cl-4713af3c">4.3</span></p></td><td class="cl-47171aaa"><p class="cl-47170876"><span class="cl-4713af3c">4.3</span></p></td><td class="cl-47171aa2"><p class="cl-47170876"><span class="cl-4713af3c">4.3</span></p></td><td class="cl-47171aa2"><p class="cl-47170876"><span class="cl-4713af3c">4.3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-47171aab"><p class="cl-4717086c"><span class="cl-4713af3c">30+</span></p></td><td class="cl-47171aac"><p class="cl-47170876"><span class="cl-4713af3c">4.4</span></p></td><td class="cl-47171ab4"><p class="cl-47170876"><span class="cl-4713af3c">2.0</span></p></td><td class="cl-47171ab4"><p class="cl-47170876"><span class="cl-4713af3c">9.4</span></p></td><td class="cl-47171aac"><p class="cl-47170876"><span class="cl-4713af3c">-8.3</span></p></td><td class="cl-47171aac"><p class="cl-47170876"><span class="cl-4713af3c">16.7</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="figure-2b" class="level3">
+<h3 class="anchored" data-anchor-id="figure-2b">Figure 2B</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">get_figure2</span>(<span class="st">"os_diff"</span>)<span class="sc">+</span> </span>
+<span id="cb24-2"><a href="#cb24-2"></a>   <span class="fu">ylab</span>( <span class="st">"Difference in OS (months)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="CodingSample_HTML_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="model-1b" class="level3">
+<h3 class="anchored" data-anchor-id="model-1b">Model 1B</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Monotherapy</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Combination</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">get_model1</span>(<span class="st">"os_diff"</span>)<span class="sc">$</span>Single</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = get(outcome_var) ~ rr_intervention, data = .)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8.9410 -3.3640  0.6332  4.5754  7.5453 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)      4.85950    3.03207   1.603    0.133
+rr_intervention -0.05421    0.06616  -0.819    0.427
+
+Residual standard error: 5.801 on 13 degrees of freedom
+  (41 observations deleted due to missingness)
+Multiple R-squared:  0.04911,   Adjusted R-squared:  -0.02403 
+F-statistic: 0.6714 on 1 and 13 DF,  p-value: 0.4273</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">get_model1</span>(<span class="st">"os_diff"</span>)<span class="sc">$</span>Combination</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = get(outcome_var) ~ rr_intervention, data = .)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-17.414  -8.564   3.266   8.395  15.060 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)     -27.8169    14.7229  -1.889   0.1077  
+rr_intervention   0.5786     0.2610   2.217   0.0685 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 13.07 on 6 degrees of freedom
+  (4 observations deleted due to missingness)
+Multiple R-squared:  0.4503,    Adjusted R-squared:  0.3587 
+F-statistic: 4.915 on 1 and 6 DF,  p-value: 0.06848</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="model-2b" class="level3">
+<h3 class="anchored" data-anchor-id="model-2b">Model 2B</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">get_model2</span>(<span class="st">"os_diff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = get(outcome_var) ~ rr_intervention * type, data = dat1)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-17.4138  -5.0971   0.6332   7.1972  15.0605 
+
+Coefficients:
+                           Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept)                -27.8169     9.8829  -2.815  0.01106 * 
+rr_intervention              0.5786     0.1752   3.303  0.00374 **
+typeSingle                  32.6764    10.8949   2.999  0.00737 **
+rr_intervention:typeSingle  -0.6328     0.2017  -3.137  0.00543 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8.774 on 19 degrees of freedom
+  (45 observations deleted due to missingness)
+Multiple R-squared:  0.3712,    Adjusted R-squared:  0.2719 
+F-statistic: 3.739 on 3 and 19 DF,  p-value: 0.02885</code></pre>
+</div>
+</div>
+</section>
+<section id="model-3b" class="level3">
+<h3 class="anchored" data-anchor-id="model-3b">Model 3B</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">get_model3</span>(<span class="st">"os_diff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = get(outcome_var) ~ rr_intervention + type, data = dat1)
+
+Coefficients:
+    (Intercept)  rr_intervention       typeSingle  
+        -2.2578           0.1014           0.9155  </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="outcome-c-pfs-in-intervention" class="level2">
+<h2 class="anchored" data-anchor-id="outcome-c-pfs-in-intervention">Outcome C: PFS in intervention</h2>
+<section id="figure-1c" class="level3">
+<h3 class="anchored" data-anchor-id="figure-1c">Figure 1C</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">get_figure1</span>(<span class="st">"pfs_intervention"</span>) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">ylab</span>(<span class="st">"PFS in intervention (months)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="CodingSample_HTML_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="table-1c" class="level3">
+<h3 class="anchored" data-anchor-id="table-1c">Table 1C</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">get_sum_table</span>(<span class="st">"pfs_intervention"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-47dde70c{}.cl-47d5d47c{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-47d5d486{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(153, 153, 153, 1.00);background-color:transparent;}.cl-47d8f030{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-47d8f03a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-47d90228{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47d90229{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47d9022a{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47d90232{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47d90233{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47d90234{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47d90235{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47d9023c{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47d9023d{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47d9023e{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47d90246{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47d90247{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47d90248{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47d90249{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-47d90250{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-47dde70c"><thead><tr style="overflow-wrap:break-word;"><th class="cl-47d90228"><p class="cl-47d8f030"><span class="cl-47d5d47c">rr_cat</span></p></th><th class="cl-47d90229"><p class="cl-47d8f03a"><span class="cl-47d5d47c">median</span></p></th><th class="cl-47d9022a"><p class="cl-47d8f03a"><span class="cl-47d5d47c">percentile.25</span></p></th><th class="cl-47d9022a"><p class="cl-47d8f03a"><span class="cl-47d5d47c">percentile.75</span></p></th><th class="cl-47d90229"><p class="cl-47d8f03a"><span class="cl-47d5d47c">min</span></p></th><th class="cl-47d90229"><p class="cl-47d8f03a"><span class="cl-47d5d47c">max</span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-47d90232"><p class="cl-47d8f030"><span class="cl-47d5d486">factor</span></p></th><th class="cl-47d90233"><p class="cl-47d8f03a"><span class="cl-47d5d486">numeric</span></p></th><th class="cl-47d90234"><p class="cl-47d8f03a"><span class="cl-47d5d486">numeric</span></p></th><th class="cl-47d90234"><p class="cl-47d8f03a"><span class="cl-47d5d486">numeric</span></p></th><th class="cl-47d90233"><p class="cl-47d8f03a"><span class="cl-47d5d486">numeric</span></p></th><th class="cl-47d90233"><p class="cl-47d8f03a"><span class="cl-47d5d486">numeric</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-47d90235"><p class="cl-47d8f030"><span class="cl-47d5d47c">&lt;10</span></p></td><td class="cl-47d9023c"><p class="cl-47d8f03a"><span class="cl-47d5d47c">3.1</span></p></td><td class="cl-47d9023d"><p class="cl-47d8f03a"><span class="cl-47d5d47c">2.5</span></p></td><td class="cl-47d9023d"><p class="cl-47d8f03a"><span class="cl-47d5d47c">3.6</span></p></td><td class="cl-47d9023c"><p class="cl-47d8f03a"><span class="cl-47d5d47c">2.0</span></p></td><td class="cl-47d9023c"><p class="cl-47d8f03a"><span class="cl-47d5d47c">4.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-47d9023e"><p class="cl-47d8f030"><span class="cl-47d5d47c">10-20</span></p></td><td class="cl-47d90246"><p class="cl-47d8f03a"><span class="cl-47d5d47c">5.5</span></p></td><td class="cl-47d90247"><p class="cl-47d8f03a"><span class="cl-47d5d47c">5.5</span></p></td><td class="cl-47d90247"><p class="cl-47d8f03a"><span class="cl-47d5d47c">5.6</span></p></td><td class="cl-47d90246"><p class="cl-47d8f03a"><span class="cl-47d5d47c">5.5</span></p></td><td class="cl-47d90246"><p class="cl-47d8f03a"><span class="cl-47d5d47c">5.6</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-47d90235"><p class="cl-47d8f030"><span class="cl-47d5d47c">20-30</span></p></td><td class="cl-47d9023c"><p class="cl-47d8f03a"><span class="cl-47d5d47c">6.1</span></p></td><td class="cl-47d9023d"><p class="cl-47d8f03a"><span class="cl-47d5d47c">4.2</span></p></td><td class="cl-47d9023d"><p class="cl-47d8f03a"><span class="cl-47d5d47c">7.3</span></p></td><td class="cl-47d9023c"><p class="cl-47d8f03a"><span class="cl-47d5d47c">2.3</span></p></td><td class="cl-47d9023c"><p class="cl-47d8f03a"><span class="cl-47d5d47c">7.3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-47d90248"><p class="cl-47d8f030"><span class="cl-47d5d47c">30+</span></p></td><td class="cl-47d90249"><p class="cl-47d8f03a"><span class="cl-47d5d47c">11.1</span></p></td><td class="cl-47d90250"><p class="cl-47d8f03a"><span class="cl-47d5d47c">8.5</span></p></td><td class="cl-47d90250"><p class="cl-47d8f03a"><span class="cl-47d5d47c">15.5</span></p></td><td class="cl-47d90249"><p class="cl-47d8f03a"><span class="cl-47d5d47c">3.5</span></p></td><td class="cl-47d90249"><p class="cl-47d8f03a"><span class="cl-47d5d47c">34.0</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="figure-2c" class="level3">
+<h3 class="anchored" data-anchor-id="figure-2c">Figure 2C</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">get_figure2</span>(<span class="st">"pfs_intervention"</span>)<span class="sc">+</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">ylab</span>(<span class="st">"PFS in intervention (months)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="CodingSample_HTML_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="model-1c" class="level3">
+<h3 class="anchored" data-anchor-id="model-1c">Model 1C</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Monotherapy</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Combination</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">get_model1</span>(<span class="st">"pfs_intervention"</span>)<span class="sc">$</span>Single</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = get(outcome_var) ~ rr_intervention, data = .)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-7.5663 -3.0900 -0.8781  1.7883 13.0154 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     -0.85104    1.85648  -0.458    0.649    
+rr_intervention  0.25995    0.03705   7.016 1.38e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.607 on 42 degrees of freedom
+  (12 observations deleted due to missingness)
+Multiple R-squared:  0.5396,    Adjusted R-squared:  0.5286 
+F-statistic: 49.22 on 1 and 42 DF,  p-value: 1.381e-08</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">get_model1</span>(<span class="st">"pfs_intervention"</span>)<span class="sc">$</span>Combination</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = get(outcome_var) ~ rr_intervention, data = .)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.0836 -2.9441  0.1177  2.4055  5.0262 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)      0.37055    4.00052   0.093   0.9292  
+rr_intervention  0.22876    0.06968   3.283   0.0168 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.462 on 6 degrees of freedom
+  (4 observations deleted due to missingness)
+Multiple R-squared:  0.6424,    Adjusted R-squared:  0.5828 
+F-statistic: 10.78 on 1 and 6 DF,  p-value: 0.01676</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="model-2c" class="level3">
+<h3 class="anchored" data-anchor-id="model-2c">Model 2C</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">get_model2</span>(<span class="st">"pfs_intervention"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = get(outcome_var) ~ rr_intervention * type, data = dat1)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-7.5663 -3.0569 -0.6676  1.9185 13.0154 
+
+Coefficients:
+                           Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)                 0.37055    5.17570   0.072   0.9432  
+rr_intervention             0.22876    0.09014   2.538   0.0145 *
+typeSingle                 -1.22158    5.48151  -0.223   0.8246  
+rr_intervention:typeSingle  0.03119    0.09708   0.321   0.7494  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.48 on 48 degrees of freedom
+  (16 observations deleted due to missingness)
+Multiple R-squared:  0.5531,    Adjusted R-squared:  0.5252 
+F-statistic:  19.8 on 3 and 48 DF,  p-value: 1.709e-08</code></pre>
+</div>
+</div>
+</section>
+<section id="model-3c" class="level3">
+<h3 class="anchored" data-anchor-id="model-3c">Model 3C</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">get_model3</span>(<span class="st">"pfs_intervention"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = get(outcome_var) ~ rr_intervention + type, data = dat1)
+
+Coefficients:
+    (Intercept)  rr_intervention       typeSingle  
+        -1.0995           0.2557           0.4481  </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="outcome-d-difference-in-pfs" class="level2">
+<h2 class="anchored" data-anchor-id="outcome-d-difference-in-pfs">Outcome D: Difference in PFS</h2>
+<section id="figure-1d" class="level3">
+<h3 class="anchored" data-anchor-id="figure-1d">Figure 1D</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">get_figure1</span>(<span class="st">"pfs_diff"</span>) <span class="sc">+</span> </span>
+<span id="cb44-2"><a href="#cb44-2"></a>   <span class="fu">ylab</span>( <span class="st">"Difference in PFS (months)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="CodingSample_HTML_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="table-1d" class="level3">
+<h3 class="anchored" data-anchor-id="table-1d">Table 1D</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">get_sum_table</span>(<span class="st">"pfs_diff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-48914298{}.cl-48889828{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-48889832{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(153, 153, 153, 1.00);background-color:transparent;}.cl-488beeb0{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-488beeba{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-488c01ac{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-488c01b6{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-488c01b7{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-488c01b8{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-488c01c0{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-488c01c1{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-488c01ca{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-488c01cb{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-488c01cc{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-488c01d4{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-488c01d5{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-488c01de{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-488c01df{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-488c01e0{width:0.829in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-488c01e8{width:1.16in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-48914298"><thead><tr style="overflow-wrap:break-word;"><th class="cl-488c01ac"><p class="cl-488beeb0"><span class="cl-48889828">rr_cat</span></p></th><th class="cl-488c01b6"><p class="cl-488beeba"><span class="cl-48889828">median</span></p></th><th class="cl-488c01b7"><p class="cl-488beeba"><span class="cl-48889828">percentile.25</span></p></th><th class="cl-488c01b7"><p class="cl-488beeba"><span class="cl-48889828">percentile.75</span></p></th><th class="cl-488c01b6"><p class="cl-488beeba"><span class="cl-48889828">min</span></p></th><th class="cl-488c01b6"><p class="cl-488beeba"><span class="cl-48889828">max</span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-488c01b8"><p class="cl-488beeb0"><span class="cl-48889832">factor</span></p></th><th class="cl-488c01c0"><p class="cl-488beeba"><span class="cl-48889832">numeric</span></p></th><th class="cl-488c01c1"><p class="cl-488beeba"><span class="cl-48889832">numeric</span></p></th><th class="cl-488c01c1"><p class="cl-488beeba"><span class="cl-48889832">numeric</span></p></th><th class="cl-488c01c0"><p class="cl-488beeba"><span class="cl-48889832">numeric</span></p></th><th class="cl-488c01c0"><p class="cl-488beeba"><span class="cl-48889832">numeric</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-488c01ca"><p class="cl-488beeb0"><span class="cl-48889828">&lt;10</span></p></td><td class="cl-488c01cb"><p class="cl-488beeba"><span class="cl-48889828">2.7</span></p></td><td class="cl-488c01cc"><p class="cl-488beeba"><span class="cl-48889828">2.7</span></p></td><td class="cl-488c01cc"><p class="cl-488beeba"><span class="cl-48889828">2.7</span></p></td><td class="cl-488c01cb"><p class="cl-488beeba"><span class="cl-48889828">2.7</span></p></td><td class="cl-488c01cb"><p class="cl-488beeba"><span class="cl-48889828">2.7</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-488c01ca"><p class="cl-488beeb0"><span class="cl-48889828">10-20</span></p></td><td class="cl-488c01cb"><p class="cl-488beeba"><span class="cl-48889828">1.7</span></p></td><td class="cl-488c01cc"><p class="cl-488beeba"><span class="cl-48889828">1.7</span></p></td><td class="cl-488c01cc"><p class="cl-488beeba"><span class="cl-48889828">1.7</span></p></td><td class="cl-488c01cb"><p class="cl-488beeba"><span class="cl-48889828">1.7</span></p></td><td class="cl-488c01cb"><p class="cl-488beeba"><span class="cl-48889828">1.7</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-488c01d4"><p class="cl-488beeb0"><span class="cl-48889828">20-30</span></p></td><td class="cl-488c01d5"><p class="cl-488beeba"><span class="cl-48889828">3.4</span></p></td><td class="cl-488c01de"><p class="cl-488beeba"><span class="cl-48889828">3.4</span></p></td><td class="cl-488c01de"><p class="cl-488beeba"><span class="cl-48889828">3.4</span></p></td><td class="cl-488c01d5"><p class="cl-488beeba"><span class="cl-48889828">3.4</span></p></td><td class="cl-488c01d5"><p class="cl-488beeba"><span class="cl-48889828">3.4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-488c01df"><p class="cl-488beeb0"><span class="cl-48889828">30+</span></p></td><td class="cl-488c01e0"><p class="cl-488beeba"><span class="cl-48889828">5.6</span></p></td><td class="cl-488c01e8"><p class="cl-488beeba"><span class="cl-48889828">4.9</span></p></td><td class="cl-488c01e8"><p class="cl-488beeba"><span class="cl-48889828">7.2</span></p></td><td class="cl-488c01e0"><p class="cl-488beeba"><span class="cl-48889828">1.7</span></p></td><td class="cl-488c01e0"><p class="cl-488beeba"><span class="cl-48889828">13.0</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="figure-2d" class="level3">
+<h3 class="anchored" data-anchor-id="figure-2d">Figure 2D</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">get_figure2</span>(<span class="st">"pfs_diff"</span>)<span class="sc">+</span> </span>
+<span id="cb46-2"><a href="#cb46-2"></a>   <span class="fu">ylab</span>(<span class="st">"Difference in PFS (months)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="CodingSample_HTML_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="model-1d" class="level3">
+<h3 class="anchored" data-anchor-id="model-1d">Model 1D</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Monotherapy</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Combination</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">get_model1</span>(<span class="st">"pfs_diff"</span>)<span class="sc">$</span>Single</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = get(outcome_var) ~ rr_intervention, data = .)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.8632 -1.9693 -0.7168  0.7825  7.7097 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)      3.10732    2.12029   1.466    0.168
+rr_intervention  0.04548    0.04326   1.051    0.314
+
+Residual standard error: 3.174 on 12 degrees of freedom
+  (42 observations deleted due to missingness)
+Multiple R-squared:  0.08432,   Adjusted R-squared:  0.008016 
+F-statistic: 1.105 on 1 and 12 DF,  p-value: 0.3139</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="fu">get_model1</span>(<span class="st">"pfs_diff"</span>)<span class="sc">$</span>Combination</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = get(outcome_var) ~ rr_intervention, data = .)
+
+Residuals:
+      1       3       4       7       9      10      11 
+-0.7935  1.3842  1.3842  0.9509 -1.3956 -1.1472 -0.3830 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)     5.933633   2.353093   2.522   0.0531 .
+rr_intervention 0.004479   0.038660   0.116   0.9123  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.325 on 5 degrees of freedom
+  (5 observations deleted due to missingness)
+Multiple R-squared:  0.002677,  Adjusted R-squared:  -0.1968 
+F-statistic: 0.01342 on 1 and 5 DF,  p-value: 0.9123</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="model-2d" class="level3">
+<h3 class="anchored" data-anchor-id="model-2d">Model 2D</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">get_model2</span>(<span class="st">"pfs_diff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = get(outcome_var) ~ rr_intervention * type, data = dat1)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.8632 -1.1995 -0.7079  0.9509  7.7097 
+
+Coefficients:
+                            Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)                 5.933633   4.905736   1.210    0.243
+rr_intervention             0.004479   0.080599   0.056    0.956
+typeSingle                 -2.826315   5.241180  -0.539    0.597
+rr_intervention:typeSingle  0.041001   0.088957   0.461    0.651
+
+Residual standard error: 2.762 on 17 degrees of freedom
+  (47 observations deleted due to missingness)
+Multiple R-squared:  0.1117,    Adjusted R-squared:  -0.04509 
+F-statistic: 0.7123 on 3 and 17 DF,  p-value: 0.558</code></pre>
+</div>
+</div>
+</section>
+<section id="model-3d" class="level3">
+<h3 class="anchored" data-anchor-id="model-3d">Model 3D</h3>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">get_model3</span>(<span class="st">"pfs_diff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = get(outcome_var) ~ rr_intervention + type, data = dat1)
+
+Coefficients:
+    (Intercept)  rr_intervention       typeSingle  
+        3.93193          0.03814         -0.49483  </code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
