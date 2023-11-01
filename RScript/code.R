@@ -1,0 +1,344 @@
+
+
+# load packages
+library(tidyverse)
+library(xlsx)
+library(ggtext)
+library(ggpubr)
+library(janitor)
+library(flextable)
+library(broom)
+
+
+
+# Import & clean data---------------------------------------------
+
+#reads data from excel sheet
+data <- read.xlsx2("data_og.xlsx", sheetName = "og") |> 
+  #makes the variable names more compatible for manipulation
+  janitor::clean_names() 
+
+
+dat1 <- data |> 
+  #removes variables not in use
+  select(rr_intervention, os_intervention_months, pfs_intervention, os_control_months, pfs_contnrol, type) |> 
+  #transforms variables into numerical format
+  mutate(across(c(rr_intervention, os_intervention_months, pfs_intervention, os_control_months, pfs_contnrol), as.numeric)) |> 
+  #categorizes independent variable
+  mutate(rr_cat = case_when(
+    rr_intervention < 10 ~ "<10", 
+    rr_intervention >= 10 & rr_intervention < 20 ~ "10-20", 
+    rr_intervention >= 20 & rr_intervention < 30 ~ "20-30", 
+    rr_intervention >= 30 ~ "30+", 
+    T ~ "other"
+  ))  |> 
+  #removes rows with NA/missing for the main independent variable
+  filter(rr_cat != "other") |> 
+  #factorizes categorized variables
+  mutate(rr_cat = factor(rr_cat, levels = c("<10", "10-20", "20-30", "30+")), 
+         #calculates new variables
+         os_diff = os_intervention_months - os_control_months, 
+         pfs_diff = pfs_intervention - pfs_contnrol) 
+
+
+# creates dictionary for color use in later code
+col_labs <- c(
+  "Overall"="#17162F", 
+  "Single" = "#FFB248", 
+  "Combination" = "#C76058"
+)
+
+# creates another dictionary for color use in later code
+col2 <- rev(c(
+  "#BF4904", 
+  "#D97925", 
+  "#F28705", 
+  "#F29F05"
+))
+
+
+
+# Functions---------------------------------------------------------------------
+
+
+
+get_figure1 <- function(outcome_var) {
+  
+  # Calculates stats test for variable
+  stat_test <- kruskal.test(get(outcome_var) ~ rr_cat, data = dat1)
+  
+  # Calculates labels for plot
+  med_lab <- dat1 |> 
+    summarize(median = round(median(get(outcome_var), na.rm = T), 1),
+              maxz = max(get(outcome_var)), 
+              .by = rr_cat)
+  
+  
+  
+  plot <- dat1 |> 
+    #maps variables to figure
+    ggplot(aes(x = rr_cat, y = get(outcome_var), color = rr_cat)) +
+    #adds and formats dots
+    geom_jitter(alpha = 0.7, width = 0.15) +
+    #add & formats boxplots
+    geom_boxplot(outlier.shape = NA, size = 0.5, fill = NA) +
+    #adds & formats in blue line for overall median 
+    geom_hline(yintercept = median(dat1[[outcome_var]], na.rm = T), 
+               color = "#1261A6", 
+               linetype = 2, 
+               size = 0.6, 
+               alpha = 0.55) +
+    #adds in label for each group
+    geom_label(data = med_lab, aes(x = rr_cat, y = median, color = rr_cat, label = median), 
+               position = position_nudge(x = -0.4)) +
+    #formats the x-axis
+    scale_x_discrete(expand = expansion(add = c(0.75, 0))) +
+    #maps the correct colors to categories
+    scale_color_manual(values = col2, 
+                       aesthetics = "color") +
+    #adds in the p-value from the stats test
+    labs(x = "Overall response rate (%)",
+         caption = paste0("*p-value = ", round(stat_test$p.value, 2))) +
+    #applies the theme
+    theme_minimal() +
+    #cleans up theme formatting
+    theme(plot.subtitle = element_markdown(), 
+          legend.position = "none", 
+          panel.grid.major.x = element_blank(), 
+          panel.grid.major.y = element_line(linewidth = 0.5),
+          panel.grid.minor.y = element_blank())
+  
+  
+  return(plot)
+  
+}
+
+
+
+get_sum_table <- function(outcome_var) {
+  dat1 |> 
+    #orders table by previously set factor
+    arrange(rr_cat) |> 
+    #renames the variable for easier manipulation
+    mutate(val = get(outcome_var)) |> 
+    #gets summary statistics
+    summarize(median = median(val, na.rm = T),
+              percentile.25 = quantile(val, 0.25, na.rm = T),
+              percentile.75 = quantile(val, 0.75, na.rm = T),
+              min = min(val, na.rm= T),
+              max = max(val, na.rm = T), 
+              .by = rr_cat) |> 
+    #turns into a MS word table
+    flextable::as_flextable() |> 
+    #deletes footer
+    flextable::delete_part(part = "footer") 
+  
+}
+
+
+
+
+get_figure2 <- function(outcome_var) {
+  dat1 |> 
+    #maps variables to figure
+    ggplot(aes(y = get(outcome_var), x = rr_intervention, color = type)) +
+    #adds in dots
+    geom_point() +
+    #adds in linear regression, stratified by the type variable
+    geom_smooth(method = lm, se = FALSE) +
+    #maps colors from dictionary
+    scale_color_manual(values = col_labs, 
+                       aesthetics = "color") +
+    #adds x-axis title 
+    labs(x = "Overall response rate (%)", 
+         #adds in header displaying the corresponding colors
+         title = glue::glue("<span style = 'color:{col_labs[2]};'>Single agent</span> and <span style = 'color:{col_labs[3]};'>Combined</span> drugs")) +
+    #adds in equation labels
+    stat_regline_equation( aes(label = ..eq.label..)) +
+    #applies theme
+    theme_minimal() +
+    #cleans up theme
+    theme(plot.title = element_markdown(), 
+          legend.position = "none")
+  
+  
+}
+
+
+get_model1 <- function(outcome_var) {
+  model_plot <- dat1 |>
+    #groups data by stratifying variable, 'type'
+    group_by(type) |>
+    #Runs linear regression for each stratified group for outcome variable
+    do(mod = lm(get(outcome_var) ~ rr_intervention, data = .)) |>
+    #Extracts the models as a list, with the stratifying variable (type) as the name
+    pull(mod, type) |>
+    #applies the 'summary' function for each model
+    lapply(summary)  
+  
+  return(model_plot)
+  
+  
+}
+
+get_model2 <- function(outcome_var) {
+  model2 <- lm(get(outcome_var) ~  rr_intervention * type, data = dat1)
+  return(summary(model2))
+  
+}
+
+
+get_model3 <- function(outcome_var) {
+  
+  model3 <- lm(get(outcome_var) ~  rr_intervention + type, data = dat1)
+  
+  return(model3)
+  
+}
+
+
+
+
+# Outputs by outcome variables----------------------------------------------------
+
+## Outcome A: OS in intervention--
+
+### Figure 1A
+get_figure1("os_intervention_months") +
+  ylab("OS in intervention (months)")
+
+
+### Table 1A
+get_sum_table("os_intervention_months")
+
+
+
+### Figure 2A
+get_figure2("os_intervention_months")+
+  ylab("OS in intervention (months)")
+
+
+
+### Model 1A
+
+  
+get_model1("os_intervention_months")$Single
+
+  
+get_model1("os_intervention_months")$Combination
+
+
+
+### Model 2A
+get_model2("os_intervention_months")
+
+
+### Model 3A
+get_model3("os_intervention_months")
+
+
+## Outcome B: Difference in OS--
+
+### Figure 1B
+get_figure1("os_diff") + 
+  ylab( "Difference in OS (months)")
+
+
+### Table 1B
+get_sum_table("os_diff")
+
+
+
+### Figure 2B
+get_figure2("os_diff")+ 
+  ylab( "Difference in OS (months)")
+
+
+
+### Model 1B
+get_model1("os_diff")$Single
+  
+get_model1("os_diff")$Combination
+
+
+
+### Model 2B
+get_model2("os_diff")
+
+
+### Model 3B
+get_model3("os_diff")
+
+
+## Outcome C: PFS in intervention--
+
+### Figure 1C
+get_figure1("pfs_intervention") +
+  ylab("PFS in intervention (months)")
+
+
+### Table 1C
+get_sum_table("pfs_intervention")
+
+
+
+### Figure 2C
+get_figure2("pfs_intervention")+
+  ylab("PFS in intervention (months)")
+
+
+
+### Model 1C
+  
+get_model1("pfs_intervention")$Single
+
+get_model1("pfs_intervention")$Combination
+
+
+
+### Model 2C
+get_model2("pfs_intervention")
+
+
+### Model 3C
+get_model3("pfs_intervention")
+
+
+## Outcome D: Difference in PFS--
+
+### Figure 1D
+get_figure1("pfs_diff") + 
+  ylab( "Difference in PFS (months)")
+
+
+### Table 1D
+get_sum_table("pfs_diff")
+
+
+
+### Figure 2D
+
+
+get_figure2("pfs_diff")+ 
+  ylab("Difference in PFS (months)")
+
+
+
+### Model 1D
+
+get_model1("pfs_diff")$Single
+
+get_model1("pfs_diff")$Combination
+
+
+
+### Model 2D
+
+
+get_model2("pfs_diff")
+
+
+### Model 3D
+
+
+get_model3("pfs_diff")
